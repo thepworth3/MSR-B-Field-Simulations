@@ -1,0 +1,229 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jun 30 14:05:23 2023
+
+@author: thoma
+"""
+#This code generates one Dipole and creates a bunch of different plots of that dipoles field. 
+
+from dipole import dipole 
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from position_maker import pos
+
+inc = 100 # enter your increments in mm
+
+
+pos(inc)
+
+positions = pd.read_csv("positions" + str(inc) + "mm increments.csv")
+
+x = np.array(positions.iloc[:, 0]/1000)  # Converting position to meters
+y = np.array(positions.iloc[:, 1]/1000)
+z = np.array(positions.iloc[:, 2]/1000)
+
+# x = 0
+# y = 0
+# z = 0
+
+
+
+xd = 0
+yd = 1.2
+zd = 0
+
+mx = 0
+my = 1
+mz = 0
+
+d = dipole(xd, yd, zd, mx, my, mz)
+
+
+# d.__init__(xd, yd, zd, mx, my, mz)
+
+
+Bx = d.bx(x,y,z)
+By = d.by(x,y,z)
+Bz = d.bz(x,y,z)
+b = d.b(x,y,z)
+# Plotting  3D
+fig31 = plt.figure()
+ax31 = plt.axes(projection = "3d")
+
+plt.title("Bx over the xy plane ")
+ax31.scatter3D(x,y,Bx)
+ax31.set_xlabel("x-axis (m)")
+ax31.set_ylabel("y-axis (m)")
+ax31.set_zlabel("Bx from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+fig32 = plt.figure()
+ax32 = plt.axes(projection = "3d")
+
+plt.title("By over the xy plane")
+ax32.scatter3D(x,y,By)
+ax32.set_xlabel("x-axis (m)")
+ax32.set_ylabel("y-axis (m)")
+ax32.set_zlabel("By from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+fig33 = plt.figure()
+ax33 = plt.axes(projection = "3d")
+
+plt.title("Bz over the xy plane")
+ax33.scatter3D(x,y,Bz)
+ax33.set_xlabel("x-axis (m)")
+ax33.set_ylabel("y-axis (m)")
+ax33.set_zlabel("Bz from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+
+fig34 = plt.figure()
+ax34= plt.axes(projection = "3d")
+
+plt.title("Bx over the xz plane")
+ax34.scatter3D(x,z,Bx)
+ax34.set_xlabel("x-axis (m)")
+ax34.set_ylabel("z-axis (m)")
+ax34.set_zlabel("Bx from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+fig35 = plt.figure()
+ax35 = plt.axes(projection = "3d")
+
+plt.title("By over the xz plane")
+ax35.scatter3D(x,z,By)
+ax35.set_xlabel("x-axis (m)")
+ax35.set_ylabel("z-axis (m)")
+ax35.set_zlabel("By from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+fig36 = plt.figure()
+ax36 = plt.axes(projection = "3d")
+
+plt.title("Bz over the xz plane")
+ax36.scatter3D(x,z,Bz)
+ax36.set_xlabel("x-axis (m)")
+ax36.set_ylabel("z-axis (m)")
+ax36.set_zlabel("Bz from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+fig37 = plt.figure()
+ax37 = plt.axes(projection = "3d")
+
+plt.title("Bx over the yz plane")
+ax37.scatter3D(y,z,Bx)
+ax37.set_xlabel("y-axis (m)")
+ax37.set_ylabel("z-axis (m)")
+ax37.set_zlabel("Bx from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+
+fig36 = plt.figure()
+ax36 = plt.axes(projection = "3d")
+
+plt.title("By over the yz plane")
+ax36.scatter3D(y,z,By)
+ax36.set_xlabel("y-axis (m)")
+ax36.set_ylabel("z-axis (m)")
+ax36.set_zlabel("By from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+fig36 = plt.figure()
+ax36 = plt.axes(projection = "3d")
+
+plt.title("Bz over the yz plane")
+ax36.scatter3D(y,z,Bz)
+ax36.set_xlabel("y-axis (m)")
+ax36.set_ylabel("z-axis (m)")
+ax36.set_zlabel("Bz from dipole (T)") # Need to fix this scaling, ask Maedeh is she knows how
+plt.autoscale(False)
+plt.show()
+
+
+# to get any thing we can fit, need to adjust how the positions work and just do one hole at a time
+#Plotting 2D    
+fig21 = plt.figure()
+ax21 = plt.axes()
+
+plt.title("Bx vs. x position")
+plt.plot(x,Bx,"ro")
+plt.xlabel('x axis (m)')
+plt.ylabel('Bx due to dipole (T)')
+
+
+
+fig22 = plt.figure()
+ax22 = plt.axes()
+
+plt.title("By vs. x position")
+plt.plot(x,By,"ro")
+plt.xlabel('x axis (m)')
+plt.ylabel('By due to dipole (T)')
+
+fig23 = plt.figure()
+ax23 = plt.axes()
+
+plt.title("Bz vs. x position")
+plt.plot(x,Bz,"ro")
+plt.xlabel('x axis (m)')
+plt.ylabel('Bz due to dipole (T)')
+
+
+fig24 = plt.figure()
+ax24 = plt.axes()
+
+plt.title("Bx vs. y position")
+plt.plot(y,Bx,"ro")
+plt.xlabel('y axis (m)')
+plt.ylabel('Bx due to dipole (T)')
+
+
+fig25 = plt.figure()
+ax25 = plt.axes()
+
+plt.title("By vs. y position")
+plt.plot(y,By,"ro")
+plt.xlabel('y axis (m)')
+plt.ylabel('Bz due to dipole (T)')
+
+fig26 = plt.figure()
+ax26 = plt.axes()
+
+plt.title("Bz vs. y position")
+plt.plot(y,Bz,"ro")
+plt.xlabel('y axis (m)')
+plt.ylabel('Bz due to dipole (T)')
+
+fig27 = plt.figure()
+ax27 = plt.axes()
+
+plt.title("Bx vs. z position")
+plt.plot(z,Bx, "co")
+plt.xlabel('z axis (m)')
+plt.ylabel('Bx due to dipole (T)')
+
+fig28 = plt.figure()
+ax28 = plt.axes()
+
+plt.title("By vs. z position")
+plt.plot(z,By, "co")
+plt.xlabel('y axis (m)')
+plt.ylabel('By due to dipole (T)')
+
+fig27 = plt.figure()
+ax27 = plt.axes()
+
+plt.title("Bz vs. z position")
+plt.plot(z,Bz, "co")
+plt.xlabel('z axis (m)')
+plt.ylabel('Bz due to dipole (T)')
